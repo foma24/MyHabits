@@ -10,8 +10,6 @@ class HabitsViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         habitsCollectionView.delegate = self
         habitsCollectionView.dataSource = self
-        
-        habitsCollectionView.reloadData()
     }
     
     //MARK: - viewWillAppear
@@ -38,8 +36,12 @@ class HabitsViewController: UIViewController, UICollectionViewDelegate, UICollec
         if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habitCell", for: indexPath) as! HabitCollectionViewCell
             let habits = HabitsStore.shared.habits
-            cell.habit = habits[indexPath.item]
-            //cell.habitInCollection = {self.habitsCollectionView.reloadSections(IndexSet(integer: 0))}
+            cell.habit = habits[indexPath.row]
+            cell.delegate = self
+
+            cell.onChecked = {
+                self.habitsCollectionView.reloadData()
+            }
             
             return cell
         } else {
@@ -75,8 +77,8 @@ class HabitsViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let sectionHabitInsert = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
-        let sectionProgressInsert = UIEdgeInsets(top: 22, left: 16, bottom: 12, right: 16)
+        let sectionProgressInsert = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
+        let sectionHabitInsert = UIEdgeInsets(top: 22, left: 16, bottom: 12, right: 16)
         if section == 1 {
             return sectionProgressInsert
         } else {

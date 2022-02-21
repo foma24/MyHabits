@@ -6,7 +6,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     
-    var habitInCollection = {}
+    var onChecked: (()->Void)?
+    var delegate: HabitsViewController?
     
     var habit: Habit? {
         didSet {
@@ -34,9 +35,9 @@ class HabitCollectionViewCell: UICollectionViewCell {
             print("Already taken")
         case false:
             HabitsStore.shared.track(habit!)
-            habitInCollection()
             doneButton.layer.borderWidth = 0
             doneButton.backgroundColor = habit?.color
         }
+        delegate?.habitsCollectionView.reloadData()
     }
 }
