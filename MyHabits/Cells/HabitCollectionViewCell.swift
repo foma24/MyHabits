@@ -16,15 +16,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             timeLabel.text = habit?.dateString
             countLabel.text = "Count: \(String(describing: habit!.trackDates.count))"
             doneButton.layer.cornerRadius = 0.5*doneButton.bounds.size.width
-            
-            switch habit?.isAlreadyTakenToday {
-            case true:
-                doneButton.layer.borderWidth = 0
-                doneButton.backgroundColor = habit?.color
-            default:
-                doneButton.layer.borderWidth = 2
-                doneButton.layer.borderColor = habit?.color.cgColor
-            }
         }
     }
     
@@ -38,6 +29,5 @@ class HabitCollectionViewCell: UICollectionViewCell {
             doneButton.layer.borderWidth = 0
             doneButton.backgroundColor = habit?.color
         }
-        delegate?.habitsCollectionView.reloadData()
     }
 }
