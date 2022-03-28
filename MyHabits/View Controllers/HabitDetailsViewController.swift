@@ -9,6 +9,9 @@ class HabitDetailsViewController: UIViewController, UITableViewDataSource, UITab
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        detailTableView.delegate = self
+        detailTableView.delegate = self
     }
     
     //MARK: - viewWillAppear
@@ -43,7 +46,7 @@ class HabitDetailsViewController: UIViewController, UITableViewDataSource, UITab
         let date = HabitsStore.shared.dates[indexPath.row]
         let habit = HabitsStore.shared.habit(indexHabits, isTrackedIn: date)
         if habit {
-            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+            cell.accessoryType = .checkmark
         }
         
         return cell

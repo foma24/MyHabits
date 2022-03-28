@@ -8,7 +8,7 @@ class HabitsViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //habitsCollectionView.delegate = self
+        habitsCollectionView.delegate = self
         habitsCollectionView.dataSource = self
     }
     
@@ -37,20 +37,7 @@ class HabitsViewController: UIViewController, UICollectionViewDelegate, UICollec
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habitCell", for: indexPath) as! HabitCollectionViewCell
             let habits = HabitsStore.shared.habits
             cell.habit = habits[indexPath.row]
-            
-            switch cell.habit?.isAlreadyTakenToday {
-            case true:
-                cell.doneButton.layer.borderWidth = 0
-                cell.doneButton.backgroundColor = cell.habit?.color
-            case false:
-                cell.doneButton.layer.borderWidth = 2
-                cell.doneButton.layer.borderColor = cell.habit?.color.cgColor
-                cell.doneButton.backgroundColor = .white
-            case .none:
-                break
-            case .some(_):
-                break
-            }
+            cell.delegate = self
 
             cell.onChecked = {
                 self.habitsCollectionView.reloadData()
