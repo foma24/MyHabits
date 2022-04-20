@@ -47,6 +47,8 @@ class HabitDetailsViewController: UIViewController, UITableViewDataSource, UITab
         let habit = HabitsStore.shared.habit(indexHabits, isTrackedIn: date)
         if habit {
             cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
         
         return cell
